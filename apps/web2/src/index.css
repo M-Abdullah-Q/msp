@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overscroll-behavior: none;
+  /* scroll-margin-top: 200px; */
+}
+
+section[id] {
+  scroll-margin-top: 3rem; /* adjust to navbar height */
+}
