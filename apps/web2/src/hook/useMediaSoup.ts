@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import io from "socket.io-client";
 import * as mediasoupClient from "mediasoup-client";
 
+const localUrl = process.env.LOCAL_URL;
+
 interface Participant {
   id: string;
   name: string;
@@ -475,7 +477,7 @@ export const useMediaSoup = (): UseMediaSoupReturn => {
     async (roomName: string) => {
       try {
         // Initialize socket
-        socketRef.current = io("ws://localhost:8000/call");
+        socketRef.current = io(`https://${localUrl}:8000/call`);
 
         // Wait for connection before proceeding
         socketRef.current.on("connect", () => {

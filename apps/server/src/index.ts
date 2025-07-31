@@ -1,5 +1,6 @@
 import express from "express";
-import http from "http";
+import https from "https";
+import fs from "fs";
 
 import { Server } from "socket.io";
 import * as mediasoup from "mediasoup";
@@ -9,11 +10,11 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 
-const httpServer = http.createServer(
-  //   {
-  //     key: fs.readFileSync("./key.pem"),
-  //     cert: fs.readFileSync("./cert.pem"),
-  //   },
+const httpServer = https.createServer(
+  {
+    key: fs.readFileSync("./src/certs/key.pem"),
+    cert: fs.readFileSync("./src/certs/cert.pem"),
+  },
   app
 );
 
@@ -49,7 +50,7 @@ const createWorker = async () => {
 
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:5173", // FE
+    origin: "*", // FE
     methods: ["GET", "POST"],
   },
 });
